@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>農文 | 开业大吉</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --nongwen-red: #81271f;
+            --nongwen-brown: #512f16;
+            --nongwen-light-brown: #9d7354;
+            --nongwen-white: #edecde;
+            --nongwen-cream: #f5f4e8;
+            --nongwen-dark: #2a1f1a;
+            --nongwen-gold: #c9a86c;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Noto Serif SC', 'Microsoft YaHei', serif;
+            background: linear-gradient(180deg, var(--nongwen-dark) 0%, #1a1410 30%, var(--nongwen-brown) 100%);
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+        .texture-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="0.03"/></svg>');
+            pointer-events: none;
+            z-index: 1;
+        }
+        .moss-decoration {
+            position: fixed;
+            width: 300px; height: 200px;
+            background: radial-gradient(ellipse at center, rgba(76,125,50,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 2;
+        }
+        .moss-decoration.top-left { top: -50px; left: -100px; transform: rotate(-15deg); }
+        .moss-decoration.bottom-right { bottom: -50px; right: -100px; transform: rotate(15deg); }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            padding: 40px 20px 120px;
+            position: relative;
+            z-index: 10;
+        }
+        .logo-section {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeInDown 1s ease-out;
+        }
+        .logo-container {
+            width: 160px; height: 160px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, rgba(129,39,31,0.2), rgba(81,47,22,0.3));
+            border: 3px solid var(--nongwen-light-brown);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 60px rgba(129,39,31,0.3), inset 0 0 40px rgba(0,0,0,0.2);
+            transition: all 0.5s ease;
+            overflow: hidden;
+        }
+        .logo-container:hover { transform: scale(1.05); box-shadow: 0 0 80px rgba(129,39,31,0.4); }
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .logo-text {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--nongwen-white);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            letter-spacing: 0.1em;
+        }
+        .shop-name {
+            font-size: 2.2rem;
+            color: var(--nongwen-white);
+            letter-spacing: 0.4em;
+            font-weight: 600;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        }
+        .shop-subtitle {
+            font-size: 1rem;
+            color: var(--nongwen-light-brown);
+            letter-spacing: 0.3em;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .header::before, .header::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 80px; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--nongwen-light-brown), transparent);
+        }
+        .header::before { left: calc(50% - 200px); }
+        .header::after { right: calc(50% - 200px); }
+        .main-title {
+            font-size: 4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--nongwen-white) 0%, var(--nongwen-cream) 50%, var(--nongwen-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: premiumGlow 3s ease-in-out infinite;
+            margin-bottom: 15px;
+            letter-spacing: 0.15em;
+        }
+        @keyframes premiumGlow {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(237,236,222,0.3)) brightness(1); }
+            50% { filter: drop-shadow(0 0 40px rgba(201,168,108,0.4)) brightness(1.1); }
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .sub-title {
+            font-size: 1.2rem;
+            color: var(--nongwen-light-brown);
+            font-weight: 300;
+            letter-spacing: 0.25em;
+        }
+        .side-baskets-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 5;
+            display: flex;
+            justify-content: space-between;
+            padding: 100px 10px 150px;
+            gap: 10px;
+        }
+        .side-baskets-group {
+            display: flex;
+            gap: 10px;
+        }
+        .side-baskets {
+            width: 140px;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+        .side-baskets-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            animation: scrollUp 15s linear infinite;
+        }
+        .side-baskets-wrapper:hover {
+            animation-play-state: paused;
+        }
+        @keyframes scrollUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+        .side-basket {
+            background: linear-gradient(165deg, rgba(237,236,222,0.08) 0%, rgba(81,47,22,0.15) 50%, rgba(129,39,31,0.08) 100%);
+            border: 1px solid rgba(157,115,84,0.25);
+            border-radius: 8px;
+            padding: 15px 10px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            pointer-events: auto;
+            flex-shrink: 0;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+        .side-basket:hover {
+            border-color: rgba(157,115,84,0.5);
+            box-shadow: 0 0 20px rgba(129,39,31,0.3);
+        }
+        .side-basket .delete-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 20px;
+            height: 20px;
+            background: rgba(129,39,31,0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 12px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+        .side-basket:hover .delete-btn {
+            display: flex;
+        }
+        .side-basket .delete-btn:hover {
+            background: #a03020;
+        }
+        .admin-panel {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 400;
+        }
+        .btn-admin {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, var(--nongwen-red) 0%, #a03020 100%);
+            color: var(--nongwen-white);
+            border: none;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            font-family: 'Noto Serif SC', serif;
+            letter-spacing: 0.1em;
+        }
+        .btn-admin:hover {
+            box-shadow: 0 5px 20px rgba(129,39,31,0.4);
+        }
+        .basket-list-modal .modal-content {
+            max-width: 600px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        .basket-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .basket-list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            border: 1px solid rgba(157,115,84,0.2);
+        }
+        .basket-list-item .info {
+            flex: 1;
+            text-align: left;
+        }
+        .basket-list-item .name {
+            color: var(--nongwen-cream);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .basket-list-item .msg {
+            color: var(--nongwen-light-brown);
+            font-size: 0.9rem;
+        }
+        .basket-list-item .actions {
+            display: flex;
+            gap: 10px;
+        }
+        .basket-list-item button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-family: 'Noto Serif SC', serif;
+        }
+        .btn-edit {
+            background: rgba(157,115,84,0.5);
+            color: white;
+        }
+        .btn-delete {
+            background: rgba(129,39,31,0.8);
+            color: white;
+        }
+        .flower-baskets-section {
+            display: none;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 1.3rem;
+            color: var(--nongwen-light-brown);
+            margin-bottom: 30px;
+            letter-spacing: 0.4em;
+        }
+        .section-title::before, .section-title::after {
+            content: '❖';
+            margin: 0 20px;
+            color: var(--nongwen-red);
+            font-size: 0.8rem;
+        }
+        .flower-baskets {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 0 20px;
+        }
+        .basket {
+            background: linear-gradient(165deg, rgba(237,236,222,0.05) 0%, rgba(81,47,22,0.1) 50%, rgba(129,39,31,0.05) 100%);
+            border: 1px solid rgba(157,115,84,0.2);
+            border-radius: 8px;
+            padding: 25px 18px;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: elegantFloat 4s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+            flex: 0 0 180px;
+            width: 180px;
+        }
+        .basket::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, transparent, var(--nongwen-red), var(--nongwen-light-brown), var(--nongwen-red), transparent);
+            opacity: 0.6;
+        }
+        .basket:nth-child(2) { animation-delay: 0.3s; }
+        .basket:nth-child(3) { animation-delay: 0.6s; }
+        .basket:nth-child(4) { animation-delay: 0.9s; }
+        .basket:nth-child(5) { animation-delay: 1.2s; }
+        .basket:nth-child(6) { animation-delay: 1.5s; }
+        @keyframes elegantFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        .basket:hover {
+            transform: translateY(-5px);
+            border-color: rgba(157,115,84,0.4);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 40px rgba(129,39,31,0.1);
+        }
+        .basket-icon { font-size: 2.5rem; margin-bottom: 15px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); }
+        .side-basket svg { margin-bottom: 10px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4)); }
+        .basket-img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 10px; border: 2px solid var(--nongwen-light-brown); box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
+        .basket-sender { font-size: 1.1rem; color: var(--nongwen-cream); font-weight: 600; margin-bottom: 10px; }
+        .basket-message { font-size: 0.95rem; color: var(--nongwen-light-brown); line-height: 1.6; }
+        .basket-time { font-size: 0.75rem; color: rgba(157,115,84,0.6); margin-top: 12px; letter-spacing: 0.1em; }
+        .danmaku-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 100;
+        }
+        .danmaku {
+            position: absolute;
+            white-space: nowrap;
+            font-size: 1.3rem;
+            font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            animation: scroll linear;
+            pointer-events: none;
+            font-family: 'Noto Serif SC', serif;
+            letter-spacing: 0.1em;
+        }
+        @keyframes scroll {
+            from { transform: translateX(100vw); }
+            to { transform: translateX(-100%); }
+        }
+        .control-panel {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(145deg, rgba(42,31,26,0.85), rgba(81,47,22,0.8));
+            padding: 12px 20px;
+            border-radius: 40px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            backdrop-filter: blur(20px);
+            z-index: 200;
+            border: 1px solid rgba(157,115,84,0.2);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+            max-width: 95vw;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .control-panel input {
+            padding: 10px 16px;
+            border: 1px solid rgba(157,115,84,0.3);
+            border-radius: 25px;
+            font-size: 0.9rem;
+            min-width: 200px;
+            max-width: 250px;
+            outline: none;
+            background: rgba(0,0,0,0.3);
+            color: var(--nongwen-white);
+            font-family: 'Noto Serif SC', serif;
+        }
+        .control-panel input::placeholder { color: rgba(237,236,222,0.4); }
+        .control-panel button {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            font-family: 'Noto Serif SC', serif;
+            white-space: nowrap;
+        }
+        .btn-send {
+            background: linear-gradient(135deg, var(--nongwen-red) 0%, #a03020 100%);
+            color: var(--nongwen-white);
+            font-weight: 600;
+        }
+        .btn-send:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(129,39,31,0.4); }
+        .btn-fullscreen {
+            background: rgba(237,236,222,0.08);
+            color: rgba(237,236,222,0.8);
+            border: 1px solid rgba(157,115,84,0.2);
+        }
+        .btn-fullscreen:hover { background: rgba(237,236,222,0.15); color: var(--nongwen-white); }
+        .btn-add-basket {
+            background: linear-gradient(135deg, var(--nongwen-light-brown) 0%, var(--nongwen-brown) 100%);
+            color: var(--nongwen-white);
+        }
+        .btn-add-basket:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(157,115,84,0.3); }
+        .stats {
+            position: fixed;
+            top: 25px; right: 25px;
+            background: linear-gradient(145deg, rgba(42,31,26,0.8), rgba(81,47,22,0.7));
+            padding: 15px 25px;
+            border-radius: 20px;
+            color: rgba(237,236,222,0.7);
+            font-size: 0.85rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(157,115,84,0.15);
+            z-index: 150;
+        }
+        .stats span { color: var(--nongwen-light-brown); font-weight: 600; }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 300;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal.active { display: flex; }
+        .modal-content {
+            background: linear-gradient(165deg, rgba(42,31,26,0.98) 0%, rgba(81,47,22,0.98) 100%);
+            padding: 50px;
+            border-radius: 12px;
+            border: 1px solid rgba(157,115,84,0.2);
+            max-width: 420px;
+            width: 90%;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+            position: relative;
+        }
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 4px;
+            background: linear-gradient(90deg, transparent, var(--nongwen-red), var(--nongwen-light-brown), var(--nongwen-red), transparent);
+            border-radius: 12px 12px 0 0;
+        }
+        .modal-title {
+            font-size: 1.5rem;
+            color: var(--nongwen-cream);
+            margin-bottom: 30px;
+            text-align: center;
+            letter-spacing: 0.15em;
+        }
+        .modal input, .modal textarea {
+            width: 100%;
+            padding: 18px 20px;
+            margin-bottom: 18px;
+            border: 1px solid rgba(157,115,84,0.2);
+            border-radius: 8px;
+            background: rgba(0,0,0,0.3);
+            color: var(--nongwen-white);
+            font-size: 1rem;
+            outline: none;
+            font-family: 'Noto Serif SC', serif;
+        }
+        .modal input::placeholder, .modal textarea::placeholder { color: rgba(237,236,222,0.35); }
+        .modal-buttons { display: flex; gap: 15px; margin-top: 10px; }
+        .modal-buttons button {
+            flex: 1;
+            padding: 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            font-family: 'Noto Serif SC', serif;
+        }
+        .btn-confirm {
+            background: linear-gradient(135deg, var(--nongwen-red) 0%, #a03020 100%);
+            color: var(--nongwen-white);
+        }
+        .btn-cancel {
+            background: rgba(237,236,222,0.08);
+            color: rgba(237,236,222,0.8);
+            border: 1px solid rgba(157,115,84,0.2);
+        }
+        .corner-decoration {
+            position: fixed;
+            width: 100px; height: 100px;
+            pointer-events: none;
+            z-index: 5;
+            opacity: 0.3;
+        }
+        .corner-decoration.top-left { top: 20px; left: 20px; border-top: 2px solid var(--nongwen-light-brown); border-left: 2px solid var(--nongwen-light-brown); }
+        .corner-decoration.top-right { top: 20px; right: 20px; border-top: 2px solid var(--nongwen-light-brown); border-right: 2px solid var(--nongwen-light-brown); }
+        .corner-decoration.bottom-left { bottom: 80px; left: 20px; border-bottom: 2px solid var(--nongwen-light-brown); border-left: 2px solid var(--nongwen-light-brown); }
+        .corner-decoration.bottom-right { bottom: 80px; right: 20px; border-bottom: 2px solid var(--nongwen-light-brown); border-right: 2px solid var(--nongwen-light-brown); }
+        @media (max-width: 1200px) {
+            .side-baskets { width: 120px; }
+            .side-baskets-container { padding: 100px 8px 150px; gap: 8px; }
+            .side-baskets-group { gap: 8px; }
+        }
+        @media (max-width: 992px) {
+            .side-baskets { width: 100px; }
+            .side-basket { padding: 12px 8px; }
+            .side-baskets-container { padding: 100px 6px 150px; }
+        }
+        @media (max-width: 768px) {
+            .main-title { font-size: 2.5rem; }
+            .shop-name { font-size: 1.5rem; }
+            .logo-container { width: 100px; height: 100px; }
+            .logo-text { font-size: 2rem; }
+            .control-panel { 
+                flex-direction: row; 
+                padding: 10px 15px; 
+                border-radius: 30px; 
+                width: auto;
+                max-width: 98vw;
+                bottom: 10px;
+                gap: 8px;
+            }
+            .control-panel input { 
+                min-width: 140px; 
+                max-width: 160px;
+                padding: 8px 12px;
+                font-size: 0.85rem;
+            }
+            .control-panel button {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
+            .side-baskets { width: 70px; }
+            .side-basket { padding: 10px 5px; }
+            .side-basket .basket-icon { font-size: 1.5rem; }
+            .side-basket .basket-sender { font-size: 0.75rem; }
+            .side-basket .basket-message { font-size: 0.65rem; }
+            .side-baskets-container { padding: 90px 4px 140px; gap: 4px; }
+            .side-baskets-group { gap: 4px; }
+            .basket-icon { font-size: 2rem; }
+            .basket-sender { font-size: 0.95rem; }
+            .basket-message { font-size: 0.85rem; }
+            .header::before, .header::after { display: none; }
+            .corner-decoration.bottom-left, .corner-decoration.bottom-right { bottom: 70px; }
+            .admin-panel { top: 10px; left: 10px; }
+            .btn-admin { padding: 8px 15px; font-size: 0.8rem; }
+        }
+        @media (max-width: 480px) {
+            .side-baskets { width: 55px; }
+            .side-basket { padding: 8px 4px; }
+            .side-basket .basket-icon { font-size: 1.2rem; }
+            .side-basket .basket-sender { font-size: 0.65rem; }
+            .side-basket .basket-message { font-size: 0.6rem; }
+            .side-baskets-container { padding: 85px 2px 130px; gap: 2px; }
+            .side-baskets-group { gap: 2px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="texture-overlay"></div>
+    <div class="moss-decoration top-left"></div>
+    <div class="moss-decoration bottom-right"></div>
+    <div class="corner-decoration top-left"></div>
+    <div class="corner-decoration top-right"></div>
+    <div class="corner-decoration bottom-left"></div>
+    <div class="corner-decoration bottom-right"></div>
+    <div class="danmaku-container" id="danmakuContainer"></div>
+    <svg style="display:none">
+        <defs>
+            <linearGradient id="basketGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#D2691E"/>
+                <stop offset="50%" style="stop-color:#8B4513"/>
+                <stop offset="100%" style="stop-color:#654321"/>
+            </linearGradient>
+            <linearGradient id="basketGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#228B22"/>
+                <stop offset="50%" style="stop-color:#006400"/>
+                <stop offset="100%" style="stop-color:#004d00"/>
+            </linearGradient>
+            <linearGradient id="basketGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#4169E1"/>
+                <stop offset="50%" style="stop-color:#0000CD"/>
+                <stop offset="100%" style="stop-color:#00008B"/>
+            </linearGradient>
+            <radialGradient id="flowerGrad1" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" style="stop-color:#FFB6C1"/>
+                <stop offset="70%" style="stop-color:#FF1493"/>
+                <stop offset="100%" style="stop-color:#C71585"/>
+            </radialGradient>
+            <radialGradient id="flowerGrad2" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" style="stop-color:#FFD700"/>
+                <stop offset="70%" style="stop-color:#FFA500"/>
+                <stop offset="100%" style="stop-color:#FF8C00"/>
+            </radialGradient>
+            <radialGradient id="flowerGrad3" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" style="stop-color:#E6E6FA"/>
+                <stop offset="70%" style="stop-color:#9370DB"/>
+                <stop offset="100%" style="stop-color:#8A2BE2"/>
+            </radialGradient>
+            <radialGradient id="flowerGrad4" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" style="stop-color:#FFA07A"/>
+                <stop offset="70%" style="stop-color:#FF6347"/>
+                <stop offset="100%" style="stop-color:#DC143C"/>
+            </radialGradient>
+            <symbol id="flower1" viewBox="0 0 120 120">
+                <ellipse cx="60" cy="85" rx="35" ry="18" fill="url(#basketGrad1)"/>
+                <ellipse cx="60" cy="80" rx="30" ry="14" fill="#A0522D"/>
+                <path d="M35 75 L85 75 L80 50 L40 50 Z" fill="#8B4513"/>
+                <ellipse cx="40" cy="55" rx="15" ry="20" fill="url(#flowerGrad1)"/>
+                <ellipse cx="60" cy="45" rx="18" ry="22" fill="url(#flowerGrad1)"/>
+                <ellipse cx="80" cy="55" rx="15" ry="20" fill="url(#flowerGrad1)"/>
+                <ellipse cx="50" cy="65" rx="12" ry="15" fill="#FF69B4"/>
+                <ellipse cx="70" cy="65" rx="12" ry="15" fill="#FF69B4"/>
+                <circle cx="60" cy="55" r="10" fill="#FFD700"/>
+                <circle cx="60" cy="55" r="5" fill="#FFA500"/>
+            </symbol>
+            <symbol id="flower2" viewBox="0 0 120 120">
+                <ellipse cx="60" cy="88" rx="32" ry="16" fill="url(#basketGrad2)"/>
+                <ellipse cx="60" cy="83" rx="27" ry="12" fill="#228B22"/>
+                <rect x="38" y="55" width="44" height="28" rx="4" fill="#006400"/>
+                <ellipse cx="45" cy="48" rx="14" ry="18" fill="url(#flowerGrad2)"/>
+                <ellipse cx="75" cy="48" rx="14" ry="18" fill="url(#flowerGrad2)"/>
+                <ellipse cx="60" cy="38" rx="16" ry="16" fill="#FFD700"/>
+                <ellipse cx="35" cy="58" rx="10" ry="14" fill="#FFA500"/>
+                <ellipse cx="85" cy="58" rx="10" ry="14" fill="#FFA500"/>
+                <circle cx="60" cy="48" r="8" fill="#FF8C00"/>
+            </symbol>
+            <symbol id="flower3" viewBox="0 0 120 120">
+                <ellipse cx="60" cy="86" rx="34" ry="17" fill="url(#basketGrad3)"/>
+                <ellipse cx="60" cy="81" rx="28" ry="13" fill="#4169E1"/>
+                <path d="M38 78 L82 78 L78 52 L42 52 Z" fill="#0000CD"/>
+                <ellipse cx="42" cy="48" rx="13" ry="17" fill="url(#flowerGrad3)"/>
+                <ellipse cx="60" cy="40" rx="15" ry="19" fill="url(#flowerGrad3)"/>
+                <ellipse cx="78" cy="48" rx="13" ry="17" fill="url(#flowerGrad3)"/>
+                <ellipse cx="50" cy="58" rx="11" ry="14" fill="#9370DB"/>
+                <ellipse cx="70" cy="58" rx="11" ry="14" fill="#9370DB"/>
+                <circle cx="60" cy="50" r="9" fill="#E6E6FA"/>
+            </symbol>
+            <symbol id="flower4" viewBox="0 0 120 120">
+                <ellipse cx="60" cy="87" rx="33" ry="16" fill="#8B4513"/>
+                <ellipse cx="60" cy="82" rx="28" ry="12" fill="#A0522D"/>
+                <ellipse cx="60" cy="65" rx="25" ry="8" fill="#654321"/>
+                <ellipse cx="38" cy="50" rx="12" ry="16" fill="url(#flowerGrad4)"/>
+                <ellipse cx="60" cy="42" rx="14" ry="18" fill="url(#flowerGrad4)"/>
+                <ellipse cx="82" cy="50" rx="12" ry="16" fill="url(#flowerGrad4)"/>
+                <ellipse cx="48" cy="60" rx="10" ry="12" fill="#FF6347"/>
+                <ellipse cx="72" cy="60" rx="10" ry="12" fill="#FF6347"/>
+                <circle cx="60" cy="52" r="8" fill="#FFD700"/>
+                <ellipse cx="30" cy="55" rx="8" ry="12" fill="#FFA07A"/>
+                <ellipse cx="90" cy="55" rx="8" ry="12" fill="#FFA07A"/>
+            </symbol>
+            <symbol id="flower5" viewBox="0 0 120 120">
+                <ellipse cx="60" cy="88" rx="36" ry="18" fill="#2F4F4F"/>
+                <ellipse cx="60" cy="83" rx="30" ry="14" fill="#708090"/>
+                <rect x="35" y="58" width="50" height="25" rx="6" fill="#1C1C1C"/>
+                <ellipse cx="42" cy="48" rx="13" ry="17" fill="#FF1493"/>
+                <ellipse cx="60" cy="40" rx="15" ry="19" fill="#FF69B4"/>
+                <ellipse cx="78" cy="48" rx="13" ry="17" fill="#FF1493"/>
+                <ellipse cx="50" cy="58" rx="11" ry="14" fill="#FFB6C1"/>
+                <ellipse cx="70" cy="58" rx="11" ry="14" fill="#FFB6C1"/>
+                <circle cx="60" cy="50" r="9" fill="#FFF"/>
+                <ellipse cx="32" cy="52" rx="9" ry="13" fill="#DA70D6"/>
+                <ellipse cx="88" cy="52" rx="9" ry="13" fill="#DA70D6"/>
+            </symbol>
+            <symbol id="flower6" viewBox="0 0 120 120">
+                <ellipse cx="60" cy="86" rx="35" ry="17" fill="#4A0E4E"/>
+                <ellipse cx="60" cy="81" rx="29" ry="13" fill="#6B1A6B"/>
+                <path d="M38 76 L82 76 L78 50 L42 50 Z" fill="#8B008B"/>
+                <ellipse cx="40" cy="46" rx="14" ry="18" fill="#FFD700"/>
+                <ellipse cx="60" cy="38" rx="16" ry="20" fill="#FFA500"/>
+                <ellipse cx="80" cy="46" rx="14" ry="18" fill="#FFD700"/>
+                <ellipse cx="50" cy="56" rx="12" ry="15" fill="#FF6347"/>
+                <ellipse cx="70" cy="56" rx="12" ry="15" fill="#FF6347"/>
+                <circle cx="60" cy="48" r="10" fill="#DC143C"/>
+                <ellipse cx="33" cy="50" rx="10" ry="14" fill="#FF1493"/>
+                <ellipse cx="87" cy="50" rx="10" ry="14" fill="#FF1493"/>
+            </symbol>
+        </defs>
+    </svg>
+    <div class="side-baskets-container">
+        <div class="side-baskets-group">
+            <div class="side-baskets" id="leftBaskets1">
+                <div class="side-baskets-wrapper" id="leftBasketsWrapper1"></div>
+            </div>
+            <div class="side-baskets" id="leftBaskets2">
+                <div class="side-baskets-wrapper" id="leftBasketsWrapper2"></div>
+            </div>
+        </div>
+        <div class="side-baskets-group">
+            <div class="side-baskets" id="rightBaskets1">
+                <div class="side-baskets-wrapper" id="rightBasketsWrapper1"></div>
+            </div>
+            <div class="side-baskets" id="rightBaskets2">
+                <div class="side-baskets-wrapper" id="rightBasketsWrapper2"></div>
+            </div>
+        </div>
+    </div>
+    <div class="stats">花篮: <span id="basketCount">0</span> | 弹幕: <span id="danmakuCount">0</span></div>
+    <div class="admin-panel">
+        <button class="btn-admin" onclick="openAdminPanel()">管理花篮</button>
+    </div>
+    <div class="container">
+        <div class="logo-section">
+            <div class="logo-container"><span class="logo-text">農文</span></div>
+            <div class="shop-name">農 文</div>
+            <div class="shop-subtitle">民间粤菜馆</div>
+        </div>
+        <div class="header">
+            <h1 class="main-title">开业大吉</h1>
+            <p class="sub-title">守真味 · 循天时</p>
+        </div>
+
+    </div>
+    <div class="control-panel">
+        <input type="text" id="danmakuInput" placeholder="输入祝福弹幕..." maxlength="30">
+        <button class="btn-send" onclick="sendDanmaku()">发送弹幕</button>
+        <button class="btn-add-basket" onclick="openModal()">送花篮</button>
+        <button class="btn-fullscreen" onclick="toggleFullscreen()">全屏</button>
+    </div>
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <h3 class="modal-title">赠送电子花篮</h3>
+            <input type="text" id="senderName" placeholder="您的名字" maxlength="10">
+            <textarea id="blessingMessage" placeholder="祝福语（如：生意兴隆，财源广进！）" rows="3" maxlength="30"></textarea>
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="closeModal()">取消</button>
+                <button class="btn-confirm" onclick="addBasket()">确认赠送</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal basket-list-modal" id="adminModal">
+        <div class="modal-content">
+            <h3 class="modal-title">管理花篮</h3>
+            <div class="basket-list" id="basketList"></div>
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="closeAdminPanel()">关闭</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <h3 class="modal-title">编辑花篮</h3>
+            <input type="hidden" id="editIndex">
+            <input type="text" id="editName" placeholder="您的名字" maxlength="10">
+            <textarea id="editMessage" placeholder="祝福语" rows="3" maxlength="30"></textarea>
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="closeEditModal()">取消</button>
+                <button class="btn-confirm" onclick="saveEdit()">保存</button>
+            </div>
+        </div>
+    </div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCpcykgSAaAPotWMsBixZBuna5C9xAnR4c",
+            authDomain: "nongwen-opening.firebaseapp.com",
+            projectId: "nongwen-opening",
+            storageBucket: "nongwen-opening.firebasestorage.app",
+            messagingSenderId: "1016102293410",
+            appId: "1:1016102293410:web:88d73f3ba4114e52cb2cfb",
+            measurementId: "G-Q65VEDYB5M"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const basketsCollection = collection(db, "baskets");
+
+        const brandColors = ['#edecde', '#c9a86c', '#9d7354', '#d4a574', '#e8dcc8'];
+        const basketIcons = ['flower1.jpg', 'flower2.jpg', 'flower3.jpg', 'flower4.jpg', 'flower5.jpg', 'flower6.jpg'];
+        let danmakuCount = 0, basketCount = 0;
+        let baskets = [];
+        const maxBasketsPerRow = window.innerWidth < 768 ? 4 : 6;
+        
+        function initBaskets() {
+            onSnapshot(basketsCollection, (snapshot) => {
+                baskets = [];
+                snapshot.forEach((doc) => {
+                    baskets.push({ id: doc.id, ...doc.data() });
+                });
+                basketCount = baskets.length;
+                updateStats();
+                renderBaskets();
+            });
+        }
+        
+        async function addBasketToData(name, message, icon) {
+            const timeStr = new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+            const basketData = { name, message, icon: icon || basketIcons[Math.floor(Math.random() * basketIcons.length)], time: timeStr, timestamp: Date.now() };
+            await addDoc(basketsCollection, basketData);
+        }
+        
+        function renderBaskets() {
+            const wrappers = [
+                document.getElementById('leftBasketsWrapper1'),
+                document.getElementById('leftBasketsWrapper2'),
+                document.getElementById('rightBasketsWrapper1'),
+                document.getElementById('rightBasketsWrapper2')
+            ];
+            wrappers.forEach(w => w.innerHTML = '');
+            
+            baskets.forEach((basket, index) => {
+                const colIndex = index % 4;
+                const basketEl = createSideBasketElement(basket, index);
+                wrappers[colIndex].appendChild(basketEl);
+            });
+            
+            // 复制一份用于无缝滚动
+            baskets.forEach((basket, index) => {
+                const colIndex = index % 4;
+                const basketEl = createSideBasketElement(basket, index);
+                wrappers[colIndex].appendChild(basketEl);
+            });
+        }
+        
+        async function deleteBasket(index) {
+            if (confirm('确定要删除这个花篮吗？')) {
+                const basket = baskets[index];
+                if (basket.id) {
+                    await deleteDoc(doc(db, "baskets", basket.id));
+                }
+            }
+        }
+        
+        function openAdminPanel() {
+            renderBasketList();
+            document.getElementById('adminModal').classList.add('active');
+        }
+        
+        function closeAdminPanel() {
+            document.getElementById('adminModal').classList.remove('active');
+        }
+        
+        function renderBasketList() {
+            const list = document.getElementById('basketList');
+            list.innerHTML = '';
+            baskets.forEach((basket, index) => {
+                const item = document.createElement('div');
+                item.className = 'basket-list-item';
+                item.innerHTML = `<div class="info"><div class="name">${basket.icon} ${basket.name}</div><div class="msg">${basket.message}</div></div><div class="actions"><button class="btn-edit" onclick="openEditModal(${index})">编辑</button><button class="btn-delete" onclick="deleteBasket(${index})">删除</button></div>`;
+                list.appendChild(item);
+            });
+        }
+        
+        function openEditModal(index) {
+            const basket = baskets[index];
+            document.getElementById('editIndex').value = index;
+            document.getElementById('editName').value = basket.name;
+            document.getElementById('editMessage').value = basket.message;
+            document.getElementById('editModal').classList.add('active');
+            closeAdminPanel();
+        }
+        
+        function closeEditModal() {
+            document.getElementById('editModal').classList.remove('active');
+        }
+        
+        async function saveEdit() {
+            const index = parseInt(document.getElementById('editIndex').value);
+            const name = document.getElementById('editName').value.trim();
+            const message = document.getElementById('editMessage').value.trim();
+            if (!name || !message) { alert('请填写完整信息'); return; }
+            const basket = baskets[index];
+            if (basket.id) {
+                await updateDoc(doc(db, "baskets", basket.id), { name, message });
+            }
+            closeEditModal();
+        }
+        
+        function createSideBasketElement(basket, index) {
+            const div = document.createElement('div');
+            div.className = 'side-basket';
+            const iconHtml = basket.icon.endsWith('.jpg') ? `<img src="${basket.icon}" class="basket-img" alt="花篮">` : `<div class="basket-icon">${basket.icon}</div>`;
+            div.innerHTML = `<button class="delete-btn" onclick="event.stopPropagation(); deleteBasket(${index})" title="删除">×</button>${iconHtml}<div class="basket-sender">${basket.name}</div><div class="basket-message">${basket.message}</div><div class="basket-time">${basket.time}</div>`;
+            div.onclick = () => openEditModal(index);
+            return div;
+        }
+        
+        function createBasketElement(basket) {
+            const div = document.createElement('div');
+            div.className = 'basket';
+            div.innerHTML = `<div class="basket-icon">${basket.icon}</div><div class="basket-sender">${basket.name}</div><div class="basket-message">${basket.message}</div><div class="basket-time">${basket.time}</div>`;
+            return div;
+        }
+        
+        function sendDanmaku(text = null, isAuto = false) {
+            const input = document.getElementById('danmakuInput');
+            const message = text || input.value.trim();
+            if (!message) return;
+            const container = document.getElementById('danmakuContainer');
+            const danmaku = document.createElement('div');
+            danmaku.className = 'danmaku';
+            danmaku.textContent = message;
+            danmaku.style.color = brandColors[Math.floor(Math.random() * brandColors.length)];
+            danmaku.style.top = Math.random() * 70 + 15 + '%';
+            danmaku.style.fontSize = (Math.random() * 0.4 + 1.1) + 'rem';
+            const duration = Math.random() * 5 + 10;
+            danmaku.style.animationDuration = duration + 's';
+            container.appendChild(danmaku);
+            danmakuCount++;
+            updateStats();
+            setTimeout(() => { danmaku.remove(); danmakuCount--; updateStats(); }, duration * 1000);
+            if (!isAuto) input.value = '';
+        }
+        function addBasket() {
+            const name = document.getElementById('senderName').value.trim();
+            const message = document.getElementById('blessingMessage').value.trim();
+            if (!name || !message) { alert('请填写完整信息'); return; }
+            const icon = basketIcons[Math.floor(Math.random() * basketIcons.length)];
+            addBasketToData(name, message, icon);
+            renderBaskets();
+            sendDanmaku(`${name}：${message}`, true);
+            closeModal();
+            document.getElementById('senderName').value = '';
+            document.getElementById('blessingMessage').value = '';
+        }
+        function updateStats() {
+            document.getElementById('basketCount').textContent = basketCount;
+            document.getElementById('danmakuCount').textContent = danmakuCount;
+        }
+        function openModal() { document.getElementById('modal').classList.add('active'); }
+        function closeModal() { document.getElementById('modal').classList.remove('active'); }
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+            else document.exitFullscreen();
+        }
+        const autoMessages = ['農文开业大吉！', '守真味，循天时', '生意兴隆！', '财源广进！', '客似云来！', '民间粤菜，地道风味', '品时令之鲜，烹民间至味'];
+        function autoDanmaku() {
+            if (Math.random() > 0.6) sendDanmaku(autoMessages[Math.floor(Math.random() * autoMessages.length)], true);
+        }
+        document.getElementById('danmakuInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') sendDanmaku(); });
+        document.getElementById('senderName').addEventListener('keypress', (e) => { if (e.key === 'Enter') document.getElementById('blessingMessage').focus(); });
+        document.getElementById('blessingMessage').addEventListener('keypress', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); addBasket(); } });
+        document.getElementById('modal').addEventListener('click', (e) => { if (e.target.id === 'modal') closeModal(); });
+        document.getElementById('adminModal').addEventListener('click', (e) => { if (e.target.id === 'adminModal') closeAdminPanel(); });
+        document.getElementById('editModal').addEventListener('click', (e) => { if (e.target.id === 'editModal') closeEditModal(); });
+        updateStats();
+        initBaskets();
+        setInterval(autoDanmaku, 4000);
+        setTimeout(() => sendDanmaku('🎉 農文开业大吉！', true), 500);
+        setTimeout(() => sendDanmaku('守真味，循天时', true), 1500);
+        setTimeout(() => sendDanmaku('品时令之鲜，烹民间至味', true), 2500);
+    </script>
+</body>
+</html><!-- update Wed Mar 25 17:24:11 CST 2026 -->
